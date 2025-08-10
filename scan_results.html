@@ -1,0 +1,116 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Task 1 - Port Scan Results</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial; margin: 24px; color: #111; }
+    header { display:flex; align-items:center; gap:12px; }
+    h1 { margin:0; font-size:24px; }
+    .meta { color:#555; margin-bottom:18px; }
+    pre { background:#f6f6f8; padding:12px; border-radius:6px; overflow:auto; }
+    table { border-collapse: collapse; width:100%; margin-top:12px; }
+    th, td { border:1px solid #ddd; padding:10px; text-align:center; }
+    th { background:#2b6cb0; color:white; }
+    .card { border:1px solid #e2e8f0; padding:16px; border-radius:8px; margin-top:12px; box-shadow: 0 4px 10px rgba(11,22,39,0.04); }
+    .actions { margin-top:12px; display:flex; gap:8px; flex-wrap:wrap; }
+    a.button { background:#2b6cb0; color:white; padding:8px 12px; border-radius:6px; text-decoration:none; font-weight:600; }
+    a.secondary { background:#edf2f7; color:#2d3748; border:1px solid #e2e8f0; }
+    .note { color:#6b7280; font-size:14px; margin-top:8px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Task 1 — Port Scan Results</h1>
+  </header>
+
+  <div class="meta">Generated: <!--DATE--> </div>
+
+  <div class="card">
+    <h2>Summary</h2>
+    <p>This report contains sample port-scan output and recommendations. Replace the sample output with your actual <code>scan_results.txt</code> or <code>scan_results.xml</code> when uploading to GitHub.</p>
+
+    <div class="actions">
+      <a class="button" href="sandbox:/mnt/data/scan_results.txt" download>Download scan_results.txt</a>
+      <a class="button secondary" href="sandbox:/mnt/data/task1_solution.pdf" download>Download PDF Report</a>
+      <a class="button secondary" href="sandbox:/mnt/data/scan_results.html" download>Download this HTML</a>
+    </div>
+    <p class="note">If any link returns 404, upload the corresponding file to the repo or replace the href with your GitHub raw file link.</p>
+  </div>
+
+  <div class="card">
+    <h2>Commands Used</h2>
+    <pre>
+# Find local IP (Linux/macOS)
+ifconfig
+# or (Windows)
+ipconfig
+
+# TCP SYN scan with Nmap
+nmap -sS 192.168.1.0/24
+
+# Save output (plain text)
+nmap -sS 192.168.1.0/24 -oN scan_results.txt
+
+# Save XML (machine readable)
+nmap -sS 192.168.1.0/24 -oX scan_results.xml
+    </pre>
+  </div>
+
+  <div class="card">
+    <h2>Identified Open Ports & Services (Sample)</h2>
+    <table>
+      <thead>
+        <tr><th>IP Address</th><th>Open Port</th><th>Service</th><th>Notes / Risk</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>192.168.1.1</td><td>80</td><td>HTTP</td><td>Possible outdated web server</td></tr>
+        <tr><td>192.168.1.10</td><td>22</td><td>SSH</td><td>Ensure key-based auth; block password logins</td></tr>
+        <tr><td>192.168.1.15</td><td>443</td><td>HTTPS</td><td>Check TLS config and certificate validity</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Recommendations</h2>
+    <ul>
+      <li>Close or restrict access to unused ports via firewall rules.</li>
+      <li>Use SSH keys and disable password-based SSH login.</li>
+      <li>Keep services and OS patched and up-to-date.</li>
+      <li>Run periodic vulnerability scans and monitor logs.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Raw Scan Output (Sample)</h2>
+    <pre id="raw-output">
+Starting Nmap 7.93 ( https://nmap.org ) at 2025-08-10 10:00 IST
+Nmap scan report for 192.168.1.1
+PORT   STATE SERVICE
+80/tcp open  http
+
+Nmap scan report for 192.168.1.10
+PORT   STATE SERVICE
+22/tcp open  ssh
+
+Nmap scan report for 192.168.1.15
+PORT     STATE  SERVICE
+443/tcp  open   https
+
+# End of sample output
+    </pre>
+  </div>
+
+  <footer style="margin-top:18px; color:#6b7280;">
+    <div>Prepared for: Cyber Security Internship — Task 1</div>
+    <div style="margin-top:6px;">Tip: Commit this HTML to your repo along with <code>scan_results.txt</code> and screenshots inside a <code>screenshots/</code> folder.</div>
+  </footer>
+
+  <script>
+    // Insert current date/time into the meta area
+    document.querySelector('.meta').innerText = 'Generated: ' + (new Date()).toLocaleString();
+  </script>
+</body>
+</html>
